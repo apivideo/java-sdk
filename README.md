@@ -25,7 +25,7 @@ import java.io.File;
 import video.api.java.sdk.Client;
 import video.api.java.sdk.ClientFactory;
 import video.api.java.sdk.domain.exception.ResponseException;
-import video.api.java.sdk.domain.video.Video;
+import video.api.java.sdk.domain.video.UploadedVideo;
 
 public class Main {
     public static void main(String[] args) throws ResponseException {

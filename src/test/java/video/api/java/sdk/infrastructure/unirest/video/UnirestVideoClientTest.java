@@ -4,9 +4,9 @@ import kong.unirest.HttpRequest;
 import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.QueryParams;
 import video.api.java.sdk.domain.exception.ResponseException;
-import video.api.java.sdk.domain.video.Video;
+import video.api.java.sdk.domain.video.UploadedVideo;
 import video.api.java.sdk.domain.video.VideoClient;
-import video.api.java.sdk.domain.video.VideoInput;
+import video.api.java.sdk.domain.video.Video;
 import video.api.java.sdk.infrastructure.unirest.EmptySerializer;
 import video.api.java.sdk.infrastructure.unirest.RequestBuilderInspector;
 import video.api.java.sdk.infrastructure.unirest.request.RequestBuilderFactory;
@@ -84,10 +84,10 @@ class UnirestVideoClientTest {
 
     @Test
     public void create() throws ResponseException {
-        VideoInput videoInput = new VideoInput();
+        Video videoInput = new Video();
         videoInput.title = "foo";
 
-        client.create(videoInput);
+        client.createVideoContainer(videoInput);
 
         HttpRequest request = inspector.buildRequest();
 
@@ -125,7 +125,7 @@ class UnirestVideoClientTest {
 
     @Test
     public void update() throws ResponseException, IOException {
-        Video video = createDefault();
+        UploadedVideo video = createDefault();
 
         client.update(video);
 
@@ -154,7 +154,7 @@ class UnirestVideoClientTest {
         );
     }
 
-    private Video createDefault() {
-        return new Video("viXXX", new GregorianCalendar(), new GregorianCalendar(), new Video.SourceInfo("", ""), new HashMap<>());
+    private UploadedVideo createDefault() {
+        return new UploadedVideo("viXXX", new GregorianCalendar(), new GregorianCalendar(), new UploadedVideo.SourceInfo("", ""), new HashMap<>());
     }
 }

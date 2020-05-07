@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import video.api.java.sdk.domain.video.Video;
+import video.api.java.sdk.domain.video.UploadedVideo;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ class VideoDeserializerTest {
     @Test
     void deserializeMinimalSuccess() {
 
-        Video video = deserializer.deserialize(createMinimalVideo());
+        UploadedVideo video = deserializer.deserialize(createMinimalVideo());
 
         assertEquals("viXXX", video.videoId);
         assertNotNull(video.publishedAt);
@@ -67,7 +67,7 @@ class VideoDeserializerTest {
     void deserializeMaximalSuccess() {
         JSONObject deserialized = createMaximalVideo();
 
-        Video video = deserializer.deserialize(deserialized);
+        UploadedVideo video = deserializer.deserialize(deserialized);
 
         assertEquals("desc", video.description);
         assertEquals("foo", video.tags.get(0));
@@ -102,7 +102,7 @@ class VideoDeserializerTest {
                 .put(createMaximalVideo())
                 .put(createMinimalVideo());
 
-        List<Video> videos = deserializer.deserialize(collection);
+        List<UploadedVideo> videos = deserializer.deserialize(collection);
 
         assertEquals(2, videos.size());
         assertEquals("viXXX", videos.get(0).videoId);

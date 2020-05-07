@@ -2,13 +2,13 @@ package video.api.java.sdk.infrastructure.unirest.video;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import video.api.java.sdk.domain.video.Video;
+import video.api.java.sdk.domain.video.UploadedVideo;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonDeserializer;
 
-public class VideoDeserializer implements JsonDeserializer<Video> {
+public class VideoDeserializer implements JsonDeserializer<UploadedVideo> {
     @Override
-    public Video deserialize(JSONObject data) throws JSONException {
-        Video video = new Video(
+    public UploadedVideo deserialize(JSONObject data) throws JSONException {
+        UploadedVideo video = new UploadedVideo(
                 data.getString("videoId"),
                 deserializeDateTime(data.getString("publishedAt")),
                 deserializeDateTime(data.getString("updatedAt")),
@@ -47,8 +47,8 @@ public class VideoDeserializer implements JsonDeserializer<Video> {
         return video;
     }
 
-    private Video.SourceInfo deserializeSourceInfo(JSONObject data) {
-        return new Video.SourceInfo(
+    private UploadedVideo.SourceInfo deserializeSourceInfo(JSONObject data) {
+        return new UploadedVideo.SourceInfo(
                 data.getString("type"),
                 data.getString("uri")
         );

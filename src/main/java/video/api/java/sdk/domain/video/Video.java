@@ -1,30 +1,17 @@
 package video.api.java.sdk.domain.video;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Video extends VideoInput {
-    public static class SourceInfo {
-        public final String type;
-        public final String uri;
+public class Video {
 
-        public SourceInfo(String type, String uri) {
-            this.type = type;
-            this.uri  = uri;
-        }
-    }
-
-    public final String              videoId;
-    public final Calendar            publishedAt;
-    public final Calendar            updatedAt;
-    public final SourceInfo          sourceInfo;
-    public final Map<String, String> assets;
-
-    public Video(String videoId, Calendar publishedAt, Calendar updatedAt, SourceInfo sourceInfo, Map<String, String> assets) {
-        this.videoId     = videoId;
-        this.publishedAt = publishedAt;
-        this.updatedAt   = updatedAt;
-        this.sourceInfo  = sourceInfo;
-        this.assets      = assets;
-    }
+    public final Map<String, String> metadata = new HashMap<>();
+    public final List<String> tags = new ArrayList<>();
+    public String description;
+    public boolean isPublic = true;
+    public boolean panoramic;
+    public String playerId;
+    public String title;
 }
