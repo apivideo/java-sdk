@@ -163,8 +163,11 @@ public class UnirestVideoClient implements VideoClient {
                         .withHeader("Content-Range", rangeHeader);
 
                 responseBody = requestExecutor.executeJson(request);
-
-                chunkFile.deleteOnExit();
+                
+                //resolving issue 5
+               // chunkFile.deleteOnExit();
+                  inputStream.close();
+                  chunkFile.delete();
             }
         }
 
