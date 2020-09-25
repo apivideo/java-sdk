@@ -191,7 +191,7 @@ public class UnirestVideoClient implements VideoClient {
 
     public Video updateThumbnail(String videoId, String timeCode) throws ResponseException {
         RequestBuilder request = requestBuilderFactory
-                .create(PATCH, "/videos/" + videoId)
+                .create(PATCH, "/videos/" + videoId + "/thumbnail")
                 .withJson(new JSONObject().put("timecode", timeCode));
 
         JsonNode responseBody = requestExecutor.executeJson(request);
