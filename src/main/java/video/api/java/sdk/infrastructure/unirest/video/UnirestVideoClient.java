@@ -2,6 +2,7 @@ package video.api.java.sdk.infrastructure.unirest.video;
 
 import kong.unirest.JsonNode;
 import org.json.JSONObject;
+import java.math.BigInteger; 
 import video.api.java.sdk.domain.QueryParams;
 import video.api.java.sdk.domain.exception.ResponseException;
 import video.api.java.sdk.domain.pagination.PageQuery;
@@ -102,7 +103,7 @@ public class UnirestVideoClient implements VideoClient {
             videoId = create(videoInput).videoId;
         }
 
-        int fileLength = (int) file.length();
+        BigInteger fileLength = (BigInteger) file.length();
 
         try {
             Thread.sleep(150);
