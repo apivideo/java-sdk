@@ -3,7 +3,7 @@ package video.api.java.sdk.infrastructure.unirest;
 import kong.unirest.HttpRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
-import org.json.JSONObject;
+import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.exception.ClientException;
 import video.api.java.sdk.domain.exception.ResponseException;
 import video.api.java.sdk.domain.exception.ServerException;

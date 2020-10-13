@@ -1,7 +1,7 @@
 package video.api.java.sdk.infrastructure.unirest.analytics;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.analytics.PlayerSession;

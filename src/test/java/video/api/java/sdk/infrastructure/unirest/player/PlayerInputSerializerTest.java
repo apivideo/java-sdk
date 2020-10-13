@@ -1,6 +1,6 @@
 package video.api.java.sdk.infrastructure.unirest.player;
 
-import org.json.JSONObject;
+import kong.unirest.json.JSONObject;
 
 class PlayerInputSerializerTest {
     private PlayerInputSerializer playerInputSerializer = new PlayerInputSerializer();

@@ -12,7 +12,7 @@ public class InputStreamBodyBuilder implements BodyBuilder {
     private final InputStream            inputStream;
     private final int                    chunkCount;
     private final int                    chunkNum;
-    private       UploadProgressListener progressListener;
+    private final UploadProgressListener progressListener;
 
     public InputStreamBodyBuilder(String filename, InputStream inputStream, int chunkCount, int chunkNum, UploadProgressListener progressListener) {
         this.filename         = filename;

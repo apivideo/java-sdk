@@ -1,16 +1,11 @@
 package video.api.java.sdk.infrastructure.unirest.video;
 
 import kong.unirest.JsonNode;
-import org.json.JSONObject;
-import java.math.BigInteger; 
+import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.QueryParams;
 import video.api.java.sdk.domain.exception.ResponseException;
 import video.api.java.sdk.domain.pagination.PageQuery;
-import video.api.java.sdk.domain.video.Status;
-import video.api.java.sdk.domain.video.UploadProgressListener;
-import video.api.java.sdk.domain.video.Video;
-import video.api.java.sdk.domain.video.VideoClient;
-import video.api.java.sdk.domain.video.VideoInput;
+import video.api.java.sdk.domain.video.*;
 import video.api.java.sdk.infrastructure.pagination.IteratorIterable;
 import video.api.java.sdk.infrastructure.pagination.PageIterator;
 import video.api.java.sdk.infrastructure.unirest.RequestExecutor;
@@ -20,19 +15,20 @@ import video.api.java.sdk.infrastructure.unirest.request.RequestBuilderFactory;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonDeserializer;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonSerializer;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
-import static java.lang.Math.min;
 import static kong.unirest.HttpMethod.*;
 
 public class UnirestVideoClient implements VideoClient {
-    private static final int CHUNK_SIZE = 128 * 1024 * 1024; // 128 MB
+    public static final int CHUNK_SIZE = 128 * 1024 * 1024; // 128 MB
 
     private final RequestBuilderFactory      requestBuilderFactory;
     private final JsonSerializer<VideoInput> serializer;
     private final JsonDeserializer<Video>    deserializer;
-    private final RequestExecutor    requestExecutor;
-    private final StatusDeserializer statusDeserializer = new StatusDeserializer();
+    private final RequestExecutor            requestExecutor;
+    private final StatusDeserializer         statusDeserializer = new StatusDeserializer();
 
     public UnirestVideoClient(RequestBuilderFactory requestBuilderFactory, JsonSerializer<VideoInput> serializer, JsonDeserializer<Video> deserializer, RequestExecutor requestExecutor) {
         this.requestBuilderFactory = requestBuilderFactory;
@@ -103,7 +99,7 @@ public class UnirestVideoClient implements VideoClient {
             videoId = create(videoInput).videoId;
         }
 
-        BigInteger fileLength = (BigInteger) file.length();
+        long fileLength = file.length();
 
         try {
             Thread.sleep(150);
@@ -121,7 +117,7 @@ public class UnirestVideoClient implements VideoClient {
             if (fileLength < CHUNK_SIZE) {
                 responseBody = uploadSingleRequest(listener, file, videoId);
             } else {
-                responseBody = uploadMultipleRequests(file, listener, videoId, fileLength);
+                responseBody = uploadMultipleRequests(file, listener, videoId);
             }
 
             return deserializer.deserialize(responseBody.getObject());
@@ -131,44 +127,25 @@ public class UnirestVideoClient implements VideoClient {
 
     }
 
-    private JsonNode uploadMultipleRequests(File file, UploadProgressListener listener, String videoId, int fileLength) throws IOException, ResponseException {
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        int              copiedBytes      = 0;
-        int              chunkCount       = (int) Math.ceil((double) fileLength / CHUNK_SIZE);
-        JsonNode         responseBody     = null;
+    private JsonNode uploadMultipleRequests(File file, UploadProgressListener listener, String videoId) throws IOException, ResponseException {
+        long     fileLength   = file.length();
+        int      chunkCount   = (int) Math.ceil((double) fileLength / CHUNK_SIZE);
+        JsonNode responseBody = null;
+
         for (int chunkNum = 0; chunkNum < chunkCount; chunkNum++) {
+            int from = chunkNum * CHUNK_SIZE;
 
-            String chunkFileName = "upload-chunk-";
-            int    from          = copiedBytes;
-            copiedBytes = min(copiedBytes + CHUNK_SIZE, fileLength);
-            int chunkFileSize = copiedBytes - from;
+            try (InputStream chunk = new ChunkInputStream(file, from, CHUNK_SIZE)) {
+                long chunkSize = Math.min(CHUNK_SIZE, chunk.available());
 
-            String tmpdir = System.getProperty("java.io.tmpdir");
-
-            try (FileInputStream chunkStream = new FileInputStream(file)) {
-                //noinspection ResultOfMethodCallIgnored
-                chunkStream.skip(from);
-
-                byte[] b         = new byte[chunkFileSize];
-                File   chunkFile = File.createTempFile(tmpdir, chunkFileName);
-
-                RandomAccessFile randomAccessChunk = new RandomAccessFile(chunkFile, "rw");
-                randomAccessFile.readFully(b);
-                randomAccessChunk.write(b, 0, chunkFileSize);
-                final InputStream inputStream = new FileInputStream(chunkFile);
-                String            rangeHeader = "bytes " + from + "-" + (copiedBytes - 1) + "/" + fileLength;
+                String rangeHeader = "bytes " + from + "-" + (from + chunkSize - 1) + "/" + fileLength;
 
                 RequestBuilder request = requestBuilderFactory
                         .create(POST, "/videos/" + videoId + "/source")
-                        .withChunk(file.getName(), inputStream, chunkCount, chunkNum, listener)
+                        .withInputStream(file.getName(), chunk, chunkCount, chunkNum, listener)
                         .withHeader("Content-Range", rangeHeader);
 
                 responseBody = requestExecutor.executeJson(request);
-                
-                //resolving issue 5
-               // chunkFile.deleteOnExit();
-                  inputStream.close();
-                  chunkFile.delete();
             }
         }
 

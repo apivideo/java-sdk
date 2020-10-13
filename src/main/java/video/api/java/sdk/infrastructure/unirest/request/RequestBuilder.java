@@ -4,7 +4,7 @@ import kong.unirest.HttpMethod;
 import kong.unirest.HttpRequest;
 import kong.unirest.HttpRequestWithBody;
 import kong.unirest.Unirest;
-import org.json.JSONObject;
+import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.video.UploadProgressListener;
 
 import java.io.File;
@@ -55,14 +55,14 @@ public class RequestBuilder {
         return this;
     }
 
-    private boolean isFileReadable(File file) {
-        return file.exists() && file.isFile() && file.canRead();
-    }
-
-    public RequestBuilder withChunk(String filename, InputStream inputStream, int chunkCount, int chunkNum, UploadProgressListener progressListener) {
+    public RequestBuilder withInputStream(String filename, InputStream inputStream, int chunkCount, int chunkNum, UploadProgressListener progressListener) {
         bodyBuilder = new InputStreamBodyBuilder(filename, inputStream, chunkCount, chunkNum, progressListener);
 
         return this;
+    }
+
+    private boolean isFileReadable(File file) {
+        return file.exists() && file.isFile() && file.canRead();
     }
 
     public RequestBuilder withHeader(String name, String value) {

@@ -1,8 +1,8 @@
 package video.api.java.sdk.infrastructure.unirest.serializer;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONException;
+import kong.unirest.json.JSONObject;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -42,10 +42,12 @@ public interface JsonDeserializer<T> {
     }
 
     default List<String> convertJsonArrayToStringList(JSONArray array) {
-        return array.toList()
-                .stream()
-                .map(object -> Objects.toString(object, null))
-                .collect(Collectors.toList());
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < array.length(); i++) {
+            stringList.add(array.getString(i));
+        }
+
+        return stringList;
     }
 
     default Map<String, String> convertJsonMapToStringMap(JSONObject map) {
@@ -60,7 +62,7 @@ public interface JsonDeserializer<T> {
                     .newXMLGregorianCalendar(dateTime)
                     .toGregorianCalendar();
         } catch (DatatypeConfigurationException e) {
-            throw new JSONException(e);
+            throw new JSONException(e.getMessage());
         }
     }
 }

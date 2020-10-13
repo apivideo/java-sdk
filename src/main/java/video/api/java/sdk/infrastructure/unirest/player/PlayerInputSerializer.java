@@ -1,7 +1,7 @@
 package video.api.java.sdk.infrastructure.unirest.player;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import kong.unirest.json.JSONException;
+import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.player.PlayerInput;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonSerializer;
 

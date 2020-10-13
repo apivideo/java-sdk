@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.5.5] - 2020-10-13
+
+### Changed
+- Upgraded to Unirest v3. Dependencies on JSONObject and JSONArray have been updated. [More info here](https://github.com/Kong/unirest-java/blob/main/UPGRADE_GUIDE.md)
+- Large file upload (> 128MB) no longer creates temporary files. Reads a custom FileInputStream instead.
+
+
 ## [0.5.4] - 2020-07-31
 
 ### Added

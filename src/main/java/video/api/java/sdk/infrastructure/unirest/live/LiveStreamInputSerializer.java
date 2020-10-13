@@ -1,8 +1,8 @@
 package video.api.java.sdk.infrastructure.unirest.live;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONException;
+import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.asset.Assets;
 import video.api.java.sdk.domain.live.LiveStream;
 import video.api.java.sdk.domain.live.LiveStreamInput;

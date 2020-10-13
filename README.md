@@ -5,6 +5,8 @@ This is an early version, feel free to report any issue.
 
 # Install
 
+⚠️ As of v0.5.5, this library depends on Unirest v3. [More info here](https://github.com/Kong/unirest-java/blob/main/UPGRADE_GUIDE.md)
+
 ## With Gradle
 
 1. Download the [latest release](https://github.com/apivideo/java-sdk/releases).
@@ -13,8 +15,8 @@ This is an early version, feel free to report any issue.
 ```gradle
 // build.gradle
 dependencies {
-    implementation 'com.konghq:unirest-java:2.3.17'
-    implementation files('libs/java-sdk-0.2.0.jar')
+    implementation 'com.konghq:unirest-java:3.11.01'
+    implementation files('libs/java-sdk-0.5.5.jar')
 }
 ``` 
 

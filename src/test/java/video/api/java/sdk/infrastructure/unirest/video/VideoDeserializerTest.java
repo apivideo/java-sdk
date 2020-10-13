@@ -1,8 +1,8 @@
 package video.api.java.sdk.infrastructure.unirest.video;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONException;
+import kong.unirest.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.video.Video;
 

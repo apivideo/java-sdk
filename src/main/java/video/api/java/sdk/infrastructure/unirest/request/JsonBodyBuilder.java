@@ -2,7 +2,7 @@ package video.api.java.sdk.infrastructure.unirest.request;
 
 import kong.unirest.HttpRequest;
 import kong.unirest.HttpRequestWithBody;
-import org.json.JSONObject;
+import kong.unirest.json.JSONObject;
 
 public class JsonBodyBuilder implements BodyBuilder {
     private final JSONObject data;

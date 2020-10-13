@@ -1,6 +1,6 @@
 package video.api.java.sdk.infrastructure.unirest.video;
 
-import org.json.JSONObject;
+import kong.unirest.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.video.VideoInput;
 

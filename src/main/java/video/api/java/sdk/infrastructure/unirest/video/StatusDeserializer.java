@@ -1,7 +1,7 @@
 package video.api.java.sdk.infrastructure.unirest.video;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import kong.unirest.json.JSONException;
+import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.video.Status;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonDeserializer;
 
