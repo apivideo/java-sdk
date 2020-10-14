@@ -16,23 +16,23 @@ public class VideoDeserializer implements JsonDeserializer<Video> {
                 convertJsonMapToStringMap(data.getJSONObject("assets"))
         );
 
-        if (data.has("title")) {
+        if (!data.isNull("title")) {
             video.title = data.getString("title");
         }
 
-        if (data.has("description")) {
+        if (!data.isNull("description")) {
             video.description = data.getString("description");
         }
 
-        if (data.has("public")) {
+        if (!data.isNull("public")) {
             video.isPublic = data.getBoolean("public");
         }
 
-        if (data.has("panoramic")) {
+        if (!data.isNull("panoramic")) {
             video.panoramic = data.getBoolean("panoramic");
         }
 
-        if (data.has("mp4Support")) {
+        if (!data.isNull("mp4Support")) {
             video.mp4Support = data.getBoolean("mp4Support");
         }
 
@@ -44,7 +44,7 @@ public class VideoDeserializer implements JsonDeserializer<Video> {
             video.metadata.putAll(convertKeyValueJsonArrayToMap(data.getJSONArray("metadata")));
         }
 
-        if (data.has("playerId")) {
+        if (!data.isNull("playerId")) {
             video.playerId = data.getString("playerId");
         }
 
@@ -54,7 +54,7 @@ public class VideoDeserializer implements JsonDeserializer<Video> {
     private Video.SourceInfo deserializeSourceInfo(JSONObject data) {
         return new Video.SourceInfo(
                 data.getString("type"),
-                data.has("uri") ? data.getString("uri") : null
+                data.isNull("uri") ? null : data.getString("uri")
         );
     }
 }

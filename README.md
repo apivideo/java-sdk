@@ -5,7 +5,7 @@ This is an early version, feel free to report any issue.
 
 # Install
 
-⚠️ As of v0.5.5, this library depends on Unirest v3. [More info here](https://github.com/Kong/unirest-java/blob/main/UPGRADE_GUIDE.md)
+⚠️ As of v0.6.0, this library depends on Unirest v3. [More info here](https://github.com/Kong/unirest-java/blob/main/UPGRADE_GUIDE.md)
 
 ## With Gradle
 
@@ -16,7 +16,7 @@ This is an early version, feel free to report any issue.
 // build.gradle
 dependencies {
     implementation 'com.konghq:unirest-java:3.11.01'
-    implementation files('libs/java-sdk-0.5.5.jar')
+    implementation files('libs/java-sdk-0.6.0.jar')
 }
 ``` 
 

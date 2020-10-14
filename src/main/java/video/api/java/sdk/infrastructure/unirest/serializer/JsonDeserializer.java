@@ -28,12 +28,7 @@ public interface JsonDeserializer<T> {
         for (Object object : array) {
             JSONObject jsonObject = (JSONObject) object;
 
-            String value;
-            try {
-                value = jsonObject.getString("value");
-            } catch (JSONException e) {
-                value = null;
-            }
+            String value = jsonObject.isNull("value") ? null : jsonObject.getString("value");
 
             map.put(jsonObject.getString("key"), value);
         }

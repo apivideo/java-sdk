@@ -20,7 +20,7 @@ public class AccountDeserializer implements JsonDeserializer<Account> {
     }
 
     private Integer getIntOrNull(JSONObject data, String key) {
-        return data.has(key) && !data.isNull(key) ? data.getInt(key) : null;
+        return data.isNull(key) ? null : data.getInt(key);
     }
 
 }

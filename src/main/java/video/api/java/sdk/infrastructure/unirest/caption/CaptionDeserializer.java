@@ -15,7 +15,7 @@ public class CaptionDeserializer implements JsonDeserializer<Caption> {
                 data.getString("src")
         );
 
-        if (data.has("default")) {
+        if (!data.isNull("default")) {
             caption.isDefault = data.getBoolean("default");
         }
 

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2020-10-14
+
+### Changed
+- Replaced JSONObject.has() with !JSONObject.isNull()
+- TODO refresh token
 
 ## [0.5.5] - 2020-10-13
 
