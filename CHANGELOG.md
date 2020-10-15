@@ -9,7 +9,8 @@ All notable changes to this project will be documented in this file.
 - TODO refresh token
 
 ### Fixed
-- Fixed missing panoramic attribute in serializer
+- Fixed missing panoramic attribute in video serializer
+- Fixed missing source attribute in video serializer
 
 
 ## [0.5.5] - 2020-10-13

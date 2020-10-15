@@ -37,4 +37,24 @@ class VideoInputSerializerTest {
 
         assertTrue(jsonVideo.getBoolean("panoramic"));
     }
+
+    @Test
+    void serializeSourceDefault() {
+        VideoInput video = new VideoInput();
+        video.title = "foo";
+        JSONObject jsonVideo = serializer.serialize(video);
+
+        assertTrue(jsonVideo.isNull("source"));
+    }
+
+    @Test
+    void serializeSource() {
+        String url = "https://localhost/video.mp4";
+        VideoInput video = new VideoInput();
+        video.title = "foo";
+        video.source = url;
+        JSONObject jsonVideo = serializer.serialize(video);
+
+        assertEquals(url, jsonVideo.getString("source"));
+    }
 }

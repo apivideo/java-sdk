@@ -18,6 +18,7 @@ public class VideoInputSerializer implements JsonSerializer<VideoInput> {
             data.put("metadata", convertMapToKeyValueJson(object.metadata));
         }
         data.put("playerId", object.playerId);
+        data.put("source", object.source);
         data.put("tags", new JSONArray(object.tags));
         data.put("title", object.title);
 
