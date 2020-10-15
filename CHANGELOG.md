@@ -7,11 +7,13 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Replaced JSONObject.has() with !JSONObject.isNull()
 - Allow objects in metadata values
-- TODO refresh token
+- Changed CaptionClient.list() return value to Iterable<Caption> to match other clients
+- Changed Caption language type to Locale
 
 ### Fixed
 - Fixed missing panoramic attribute in video serializer
 - Fixed missing source attribute in video serializer
+- Fixed bad caption list deserialization
 
 
 ## [0.5.5] - 2020-10-13

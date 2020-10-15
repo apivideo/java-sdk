@@ -5,7 +5,7 @@ import video.api.java.sdk.infrastructure.unirest.AuthRequestExecutor;
 import video.api.java.sdk.infrastructure.unirest.account.AccountClient;
 import video.api.java.sdk.infrastructure.unirest.account.AccountDeserializer;
 import video.api.java.sdk.infrastructure.unirest.analytics.*;
-import video.api.java.sdk.infrastructure.unirest.caption.CaptionClient;
+import video.api.java.sdk.infrastructure.unirest.caption.UnirestCaptionClient;
 import video.api.java.sdk.infrastructure.unirest.caption.CaptionDeserializer;
 import video.api.java.sdk.infrastructure.unirest.caption.CaptionInputSerializer;
 import video.api.java.sdk.infrastructure.unirest.chapter.ChapterDeserializer;
@@ -36,7 +36,7 @@ public class ClientFactory {
 
         return new Client(
                 new AccountClient(requestBuilderFactory, new AccountDeserializer(), requestExecutor),
-                new CaptionClient(requestBuilderFactory, new CaptionInputSerializer(), new CaptionDeserializer(), requestExecutor),
+                new UnirestCaptionClient(requestBuilderFactory, new CaptionInputSerializer(), new CaptionDeserializer(), requestExecutor),
                 new LiveStreamClient(requestBuilderFactory, new LiveStreamInputSerializer(), new LiveStreamDeserializer(), requestExecutor),
                 new LiveStreamSessionClient(requestBuilderFactory, new PlayerSessionDeserializer(), requestExecutor),
                 new PlayerClient(requestBuilderFactory, new PlayerInputSerializer(), new PlayerDeserializer(), requestExecutor),

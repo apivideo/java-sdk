@@ -7,7 +7,6 @@ import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.exception.ClientException;
 import video.api.java.sdk.domain.exception.ResponseException;
 import video.api.java.sdk.domain.exception.ServerException;
-import video.api.java.sdk.infrastructure.unirest.RequestExecutor;
 import video.api.java.sdk.infrastructure.unirest.request.RequestBuilder;
 
 public class TestRequestExecutor implements RequestExecutor {
@@ -27,7 +26,7 @@ public class TestRequestExecutor implements RequestExecutor {
     private static final HttpRequest<?>    createCaptionSuccess               = Unirest.post("/videos/viSuccess/captions/en");
     private static final HttpRequest<?>    updateCaptionSuccess               = Unirest.patch("/videos/" + "viSuccess/captions/en");
     private static final HttpRequest<?>    getCaptionSuccess                  = Unirest.get("/videos/viSuccess/captions/en");
-    private static final HttpRequest<?>    getCaptionsSuccess                 = Unirest.get("/videos/viSuccess/captions");
+    private static final HttpRequest<?>    listCaptionsSuccess                = Unirest.get("/videos/viSuccess/captions");
     private static final HttpRequest<?>    deleteCaptionSuccess               = Unirest.delete("/videos/viSuccess/captions/en");
     private static final HttpRequest<?>    getCaptionFailure                  = Unirest.get("/videos/viFailure/captions/en");
     // Players
@@ -91,7 +90,7 @@ public class TestRequestExecutor implements RequestExecutor {
             return captionResponseSuccess();
         } else if (equals(request, getCaptionSuccess)) {
             return captionResponseSuccess();
-        } else if (equals(request, getCaptionsSuccess)) {
+        } else if (equals(request, listCaptionsSuccess)) {
             return captionsResponseSuccess();
         } else if (equals(request, updateCaptionSuccess)) {
             return captionResponseSuccess();

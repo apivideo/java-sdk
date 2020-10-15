@@ -46,7 +46,10 @@ public class AuthRequestExecutor implements RequestExecutor {
 
         if (response.getStatus() >= 400) {
             String message = parseErrorBody(response.getBody());
-            throw new ClientException(message == null ? "A client issue occurred." : message, response.getBody(), response.getStatus());
+            if (message == null) {
+                message = "A client issue occurred.";
+            }
+            throw new ClientException(message + "("+request.getUrl()+")", response.getBody(), response.getStatus());
         }
 
         return response.getBody();

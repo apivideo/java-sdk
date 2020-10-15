@@ -1,10 +1,12 @@
 package video.api.java.sdk.domain.caption;
 
+import java.util.Locale;
+
 public class CaptionInput {
-    public String  language;
+    public Locale language;
     public boolean isDefault;
 
-    public CaptionInput(String language) {
+    public CaptionInput(Locale language) {
         this.language = language;
     }
 }

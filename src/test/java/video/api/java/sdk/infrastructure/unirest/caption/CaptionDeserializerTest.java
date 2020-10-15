@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.caption.Caption;
 
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,7 +27,7 @@ class CaptionDeserializerTest {
         Caption caption = captionDeserializer.deserialize(createCaptionEn());
         assertEquals("foo", caption.uri);
         assertEquals("vtt", caption.src);
-        assertEquals("en", caption.language);
+        assertEquals(Locale.ENGLISH, caption.language);
         assertFalse(caption.isDefault);
 
     }
@@ -37,14 +38,14 @@ class CaptionDeserializerTest {
         Caption caption = captionDeserializer.deserialize(createCaptionMinimal());
 
         assertEquals("foo", caption.uri);
-        assertEquals("bar", caption.language);
+        assertEquals(Locale.ENGLISH, caption.language);
         assertEquals("baz", caption.src);
     }
 
     private JSONObject createCaptionMinimal() {
         return new JSONObject()
                 .put("uri", "foo")
-                .put("srclang", "bar")
+                .put("srclang", "en")
                 .put("src", "baz");
     }
 
@@ -57,9 +58,9 @@ class CaptionDeserializerTest {
 
         List<Caption> deserialized = captionDeserializer.deserialize(captions);
 
-        assertEquals(deserialized.get(0).language, "en");
-        assertEquals(deserialized.get(1).language, "fr");
-        assertEquals(deserialized.get(2).language, "es");
+        assertEquals(deserialized.get(0).language, Locale.ENGLISH);
+        assertEquals(deserialized.get(1).language, Locale.FRENCH);
+        assertEquals(deserialized.get(2).language, new Locale("es"));
     }
 
     private JSONObject createCaptionEn() {

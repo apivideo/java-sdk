@@ -5,12 +5,14 @@ import kong.unirest.json.JSONObject;
 import video.api.java.sdk.domain.caption.Caption;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonDeserializer;
 
+import java.util.Locale;
+
 public class CaptionDeserializer implements JsonDeserializer<Caption> {
 
     @Override
     public Caption deserialize(JSONObject data) throws JSONException {
         Caption caption = new Caption(
-                data.getString("srclang"),
+                new Locale(data.getString("srclang")),
                 data.getString("uri"),
                 data.getString("src")
         );

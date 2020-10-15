@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.caption.Caption;
 import video.api.java.sdk.domain.caption.CaptionInput;
 
+import java.util.Locale;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -15,7 +17,7 @@ class CaptionInputSerializerTest {
 
     @Test
     void serialize() {
-        CaptionInput caption = new CaptionInput("fr");
+        CaptionInput caption = new CaptionInput(Locale.FRENCH);
         caption.isDefault = true;
 
         JSONObject serialized =  captionDeserializer.serialize(caption);
