@@ -4,8 +4,7 @@ import kong.unirest.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import video.api.java.sdk.domain.video.VideoInput;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class VideoInputSerializerTest {
     private VideoInputSerializer serializer = new VideoInputSerializer();
@@ -18,5 +17,24 @@ class VideoInputSerializerTest {
         JSONObject jsonVideo = serializer.serialize(video);
         assertEquals("foo", jsonVideo.getString("title"));
         assertTrue(jsonVideo.getBoolean("mp4Support"));
+    }
+
+    @Test
+    void serializePanoramicDefault() {
+        VideoInput video = new VideoInput();
+        video.title = "foo";
+        JSONObject jsonVideo = serializer.serialize(video);
+
+        assertFalse(jsonVideo.getBoolean("panoramic"));
+    }
+
+    @Test
+    void serializePanoramic() {
+        VideoInput video = new VideoInput();
+        video.title = "foo";
+        video.panoramic = true;
+        JSONObject jsonVideo = serializer.serialize(video);
+
+        assertTrue(jsonVideo.getBoolean("panoramic"));
     }
 }
