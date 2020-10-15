@@ -26,7 +26,7 @@ public class AuthRequestExecutor implements RequestExecutor {
 
     public JsonNode executeJson(RequestBuilder requestBuilder) throws ResponseException {
         if (accessToken == null) {
-            this.requestAccessToken();
+            this.authByApiKey();
         }
 
         requestBuilder.headers.put("Authorization", "Bearer " + accessToken);
@@ -35,7 +35,7 @@ public class AuthRequestExecutor implements RequestExecutor {
         HttpResponse<JsonNode> response = request.asJson();
 
         if (response.getStatus() == 401 && response.getBody().getObject().getString("hint").equals("Access token is invalid")) {
-            this.refreshToken();
+            this.authByRefreshToken();
 
             return executeJson(requestBuilder);
         }
@@ -60,32 +60,33 @@ public class AuthRequestExecutor implements RequestExecutor {
         }
     }
 
-    private void requestAccessToken() throws ClientException {
+    private void authByApiKey() throws ClientException {
         HttpResponse response = requestBuilderFactory.create(POST, "/auth/api-key")
                 .withJson(new JSONObject().put("apiKey", apiKey))
                 .build()
                 .asJson();
 
         //noinspection unchecked
-        processAccessTokenResponse(response);
+        parseAccessToken(response);
     }
 
-    private void refreshToken() throws ClientException {
+    private void authByRefreshToken() throws ClientException {
         HttpResponse response = requestBuilderFactory.create(POST, "/auth/refresh")
                 .withJson(new JSONObject().put("refreshToken", this.refreshToken))
                 .build()
                 .asJson();
 
         //noinspection unchecked
-        processAccessTokenResponse(response);
+        parseAccessToken(response);
     }
 
-    private void processAccessTokenResponse(HttpResponse<JsonNode> response) throws ClientException {
-        JSONObject responseBody = response.getBody().getObject();
+    private void parseAccessToken(HttpResponse<JsonNode> response) throws ClientException {
 
         if (response.getStatus() >= 400) {
             throw new ClientException("Authentication failed.", response.getBody(), response.getStatus());
         }
+
+        JSONObject responseBody = response.getBody().getObject();
 
         this.accessToken = responseBody.getString("access_token");
         this.refreshToken = responseBody.getString("refresh_token");

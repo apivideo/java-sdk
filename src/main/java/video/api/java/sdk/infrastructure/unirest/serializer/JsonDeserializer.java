@@ -22,13 +22,13 @@ public interface JsonDeserializer<T> {
         return list;
     }
 
-    default Map<String, String> convertKeyValueJsonArrayToMap(JSONArray array) {
-        Map<String, String> map = new HashMap<>();
+    default Map<String, Object> convertKeyValueJsonArrayToMap(JSONArray array) {
+        Map<String, Object> map = new HashMap<>();
 
         for (Object object : array) {
             JSONObject jsonObject = (JSONObject) object;
 
-            String value = jsonObject.isNull("value") ? null : jsonObject.getString("value");
+            Object value = jsonObject.isNull("value") ? null : jsonObject.get("value");
 
             map.put(jsonObject.getString("key"), value);
         }

@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Replaced JSONObject.has() with !JSONObject.isNull()
+- Allow objects in metadata values
 - TODO refresh token
 
 ### Fixed

@@ -8,7 +8,7 @@ import java.util.Map;
 public class VideoInput {
     public       String              description;
     public       boolean             isPublic   = true;
-    public final Map<String, String> metadata   = new HashMap<>();
+    public final Map<String, Object> metadata   = new HashMap<>();
     public       boolean             panoramic;
     public       String              playerId;
     public       String              source;

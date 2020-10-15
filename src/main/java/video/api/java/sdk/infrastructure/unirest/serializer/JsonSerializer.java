@@ -10,10 +10,10 @@ import java.util.Map;
 public interface JsonSerializer<T> {
     JSONObject serialize(T object) throws JSONException;
 
-    default JSONArray convertMapToKeyValueJson(Map<String, String> map) {
+    default JSONArray convertMapToKeyValueJson(Map<String, Object> map) {
         JSONArray array = new JSONArray();
 
-        for (Map.Entry<String, String> e : map.entrySet()) {
+        for (Map.Entry<String, Object> e : map.entrySet()) {
             array.put(
                     new JSONObject()
                             .put("key", e.getKey())
