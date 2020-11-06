@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.6.1] - 2020-11-06
+
+### Fixed
+- Quick fix to re-auth with API key when access token has expired
+- Bump Unirest to minor version 3.11.03
+
+
 ## [0.6.0] - 2020-10-16
 
 ### Changed

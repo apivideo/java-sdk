@@ -35,7 +35,7 @@ public class AuthRequestExecutor implements RequestExecutor {
         HttpResponse<JsonNode> response = request.asJson();
 
         if (response.getStatus() == 401 && response.getBody().getObject().getString("hint").equals("Access token is invalid")) {
-            this.authByRefreshToken();
+            this.authByApiKey();
 
             return executeJson(requestBuilder);
         }

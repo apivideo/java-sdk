@@ -15,8 +15,8 @@ This is an early version, feel free to report any issue.
 ```gradle
 // build.gradle
 dependencies {
-    implementation 'com.konghq:unirest-java:3.11.01'
-    implementation files('libs/java-sdk-0.6.0.jar')
+    implementation 'com.konghq:unirest-java:3.11.03'
+    implementation files('libs/java-sdk-0.6.1.jar')
 }
 ``` 
 
