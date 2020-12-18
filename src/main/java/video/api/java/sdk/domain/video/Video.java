@@ -7,10 +7,12 @@ public class Video extends VideoInput {
     public static class SourceInfo {
         public final String type;
         public final String uri;
+        public final LiveStreamSource liveStreamSource;
 
-        public SourceInfo(String type, String uri) {
+        public SourceInfo(String type, String uri, LiveStreamSource liveStreamSource) {
             this.type = type;
             this.uri  = uri;
+            this.liveStreamSource = liveStreamSource;
         }
     }
 

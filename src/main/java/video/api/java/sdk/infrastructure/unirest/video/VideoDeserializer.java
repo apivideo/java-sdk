@@ -1,9 +1,16 @@
 package video.api.java.sdk.infrastructure.unirest.video;
 
+import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
+import video.api.java.sdk.domain.video.Links;
+import video.api.java.sdk.domain.video.LiveStreamSource;
 import video.api.java.sdk.domain.video.Video;
 import video.api.java.sdk.infrastructure.unirest.serializer.JsonDeserializer;
+import video.api.java.sdk.infrastructure.unirest.serializer.JsonSerializer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoDeserializer implements JsonDeserializer<Video> {
     @Override
@@ -52,9 +59,34 @@ public class VideoDeserializer implements JsonDeserializer<Video> {
     }
 
     private Video.SourceInfo deserializeSourceInfo(JSONObject data) {
+        System.out.println(data);
         return new Video.SourceInfo(
                 data.getString("type"),
-                data.isNull("uri") ? null : data.getString("uri")
+                data.isNull("uri") ? null : data.getString("uri"),
+                data.isNull("liveStream") ? null : deserializeLiveStream(data.getJSONObject("liveStream"))
+        );
+    }
+
+    private LiveStreamSource deserializeLiveStream(JSONObject data){
+        return new LiveStreamSource(
+                data.getString("liveStreamId"),
+                deserializeLinks(data.getJSONArray("links"))
+        );
+    }
+
+    private List<Links> deserializeLinks(JSONArray data){
+        List<Links> links = new ArrayList<>();
+        data.forEach(item ->{
+            JSONObject obj = (JSONObject) item;
+            links.add(deserializeLink(obj));
+        });
+        return links;
+    }
+
+    private Links deserializeLink(JSONObject data){
+        return new Links(
+                data.getString("rel"),
+                data.getString("uri")
         );
     }
 }

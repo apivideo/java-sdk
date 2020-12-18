@@ -37,10 +37,10 @@ public class PlayerSessionDeserializer implements JsonDeserializer<PlayerSession
 
     private Referrer deserializeReferrer(JSONObject object) {
         return new Referrer(
+                object.isNull("url") ? null : object.getString("url"),
                 object.getString("medium"),
-                object.getString("searchTerm"),
                 object.getString("source"),
-                object.getString("url")
+                object.getString("searchTerm")
         );
     }
 

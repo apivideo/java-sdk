@@ -155,6 +155,6 @@ class UnirestVideoClientTest {
     }
 
     private Video createDefault() {
-        return new Video("viXXX", new GregorianCalendar(), new GregorianCalendar(), new Video.SourceInfo("", ""), new HashMap<>());
+        return new Video("viXXX", new GregorianCalendar(), new GregorianCalendar(), new Video.SourceInfo("", "", null), new HashMap<>());
     }
 }
