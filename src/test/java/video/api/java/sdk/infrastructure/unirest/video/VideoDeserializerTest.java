@@ -78,7 +78,7 @@ class VideoDeserializerTest {
         assertTrue(video.panoramic);
         assertTrue(video.mp4Support);
         assertEquals("live", video.sourceInfo.type);
-        assertEquals(null, video.sourceInfo.uri);
+        assertNull(video.sourceInfo.uri);
         assertEquals("liXXX", video.sourceInfo.liveStreamSource.liveStreamId);
         assertEquals("self", video.sourceInfo.liveStreamSource.links.get(0).rel);
         assertEquals("uri", video.sourceInfo.liveStreamSource.links.get(0).uri);
