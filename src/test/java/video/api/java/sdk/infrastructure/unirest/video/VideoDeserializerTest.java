@@ -66,6 +66,57 @@ class VideoDeserializerTest {
     }
 
     @Test
+    void deserializeLiveRecordSuccess() {
+
+        Video video = deserializer.deserialize(createLiveRecordVideo());
+
+        assertEquals("viXXX", video.videoId);
+        assertNotNull(video.publishedAt);
+        assertNotNull(video.updatedAt);
+        assertEquals("toto", video.title);
+        assertTrue(video.isPublic);
+        assertTrue(video.panoramic);
+        assertTrue(video.mp4Support);
+        assertEquals("live", video.sourceInfo.type);
+        assertEquals(null, video.sourceInfo.uri);
+        assertEquals("liXXX", video.sourceInfo.liveStreamSource.liveStreamId);
+        assertEquals("self", video.sourceInfo.liveStreamSource.links.get(0).rel);
+        assertEquals("uri", video.sourceInfo.liveStreamSource.links.get(0).uri);
+
+
+
+    }
+
+    private JSONObject createLiveRecordVideo() {
+        return new JSONObject()
+                .put("videoId", "viXXX")
+                .put("publishedAt", "2019-08-28T16:25:51+02:00")
+                .put("updatedAt", "2019-08-28T16:25:51+02:00")
+                .put("title", "toto")
+                .put("isPublic", true)
+                .put("panoramic", true)
+                .put("mp4Support", true)
+                .put("source", new JSONObject()
+                        .put("type", "live")
+                        .put("liveStream", new JSONObject()
+                                .put("liveStreamId", "liXXX")
+                                .put("links", new JSONArray()
+                                        .put(new JSONObject()
+                                                .put("rel", "self")
+                                                .put("uri", "uri")
+                                        )
+                                )
+                        )
+                )
+                .put("assets", new JSONObject()
+                        .put("iframe", "<iframe src=\"https://embed.api.video/vod/virMgDJYvjHzoFZZYgMCkvC\" width=\"100%\" height=\"100%\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"\"></iframe>")
+                        .put("player", "https://embed.api.video/vod/virMgDJYvjHzoFZZYgMCkvC")
+                        .put("hls", "https://cdn.api.video/vod/virMgDJYvjHzoFZZYgMCkvC/hls/manifest.m3u8")
+                        .put("thumbnail", "https://cdn.api.video/vod/virMgDJYvjHzoFZZYgMCkvC/thumbnail.jpg")
+                );
+    }
+
+    @Test
     void deserializeMaximalSuccess() {
         JSONObject deserialized = createMaximalVideo();
 

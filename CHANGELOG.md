@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.6.2] - 2020-12-18
+
+### Fixed
+- Quick fix on video analytics 
+- Fix error on get video detail from liveStream record
+
 
 ## [0.6.1] - 2020-11-06
 

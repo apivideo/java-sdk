@@ -59,7 +59,6 @@ public class VideoDeserializer implements JsonDeserializer<Video> {
     }
 
     private Video.SourceInfo deserializeSourceInfo(JSONObject data) {
-        System.out.println(data);
         return new Video.SourceInfo(
                 data.getString("type"),
                 data.isNull("uri") ? null : data.getString("uri"),
