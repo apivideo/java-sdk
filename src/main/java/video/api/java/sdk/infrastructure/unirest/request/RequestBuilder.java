@@ -5,6 +5,7 @@ import kong.unirest.HttpRequest;
 import kong.unirest.HttpRequestWithBody;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
+import video.api.java.sdk.ApplicationSettings;
 import video.api.java.sdk.domain.video.UploadProgressListener;
 
 import java.io.File;
@@ -81,9 +82,9 @@ public class RequestBuilder {
         HttpRequestWithBody request = Unirest
                 .request(method.toString(), baseUri + relativePath);
 
-        if (!headers.isEmpty()) {
-            request.headers(headers);
-        }
+        headers.put("User-Agent", String.format("api.video SDK (java; v:%s)", ApplicationSettings.getVersion()));
+
+        request.headers(headers);
 
         if (!queryParams.isEmpty()) {
             request.queryString(queryParams);
