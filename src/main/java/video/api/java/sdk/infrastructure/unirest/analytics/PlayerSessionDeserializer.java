@@ -21,50 +21,50 @@ public class PlayerSessionDeserializer implements JsonDeserializer<PlayerSession
 
     private Info deserializeInfo(JSONObject object) {
         return new Info(
-                object.getString("sessionId"),
-                deserializeDateTime(object.getString("endedAt")),
-                deserializeDateTime(object.getString("loadedAt")),
+                deserializeNullableString(object,"sessionId"),
+                deserializeDateTime(deserializeNullableString(object,"endedAt")),
+                deserializeDateTime(deserializeNullableString(object,"loadedAt")),
                 object.has("metadata") ? convertKeyValueJsonArrayToMap(object.getJSONArray("metadata")) : null
         );
     }
 
-    private Location deserializeLocation(JSONObject object) {
+    protected Location deserializeLocation(JSONObject object) {
         return new Location(
-                object.getString("country"),
-                object.getString("city")
+                deserializeNullableString(object, "country"),
+                deserializeNullableString(object, "city")
         );
     }
 
     private Referrer deserializeReferrer(JSONObject object) {
         return new Referrer(
-                object.isNull("url") ? null : object.getString("url"),
-                object.getString("medium"),
-                object.getString("source"),
-                object.getString("searchTerm")
+                deserializeNullableString(object, "url"),
+                deserializeNullableString(object, "medium"),
+                deserializeNullableString(object, "source"),
+                deserializeNullableString(object, "searchTerm")
         );
     }
 
     private Device deserializeDevice(JSONObject object) {
         return new Device(
-                object.getString("model"),
-                object.getString("type"),
-                object.getString("vendor")
+                deserializeNullableString(object, "model"),
+                deserializeNullableString(object, "type"),
+                deserializeNullableString(object, "vendor")
         );
     }
 
     private OperatingSystem deserializeOperatingSystem(JSONObject object) {
         return new OperatingSystem(
-                object.getString("name"),
-                object.getString("shortname"),
-                object.getString("version")
+                deserializeNullableString(object, "name"),
+                deserializeNullableString(object, "shortname"),
+                deserializeNullableString(object, "version")
         );
     }
 
     private Client deserializeClient(JSONObject object) {
         return new Client(
-                object.getString("type"),
-                object.getString("name"),
-                object.getString("version")
+                deserializeNullableString(object, "type"),
+                deserializeNullableString(object, "name"),
+                deserializeNullableString(object, "version")
         );
     }
 }
