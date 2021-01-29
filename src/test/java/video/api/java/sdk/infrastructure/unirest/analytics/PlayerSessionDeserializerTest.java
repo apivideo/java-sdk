@@ -4,6 +4,7 @@ import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import video.api.java.sdk.domain.analytics.Location;
 import video.api.java.sdk.domain.analytics.PlayerSession;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,6 +48,29 @@ class PlayerSessionDeserializerTest {
         assertEquals(4, playerSessionDeserializer.deserialize(collection).size());
 
 
+    }
+
+    @Test
+    void deserializeNullCityValue() {
+        JSONObject jsonLocation = new JSONObject()
+                .put("country", "France")
+                .put("city", (String) null);
+
+        Location location = playerSessionDeserializer.deserializeLocation(jsonLocation);
+
+        assertEquals("France", location.country);
+        assertNull(location.city);
+    }
+
+    @Test
+    void deserializeMissingCityValue() {
+        JSONObject jsonLocation = new JSONObject()
+                .put("country", "France");
+
+        Location location = playerSessionDeserializer.deserializeLocation(jsonLocation);
+
+        assertEquals("France", location.country);
+        assertNull(location.city);
     }
 
     private JSONObject createSerializedPlayerSessionMin() {

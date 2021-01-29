@@ -7,6 +7,7 @@ import kong.unirest.json.JSONObject;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public interface JsonDeserializer<T> {
@@ -52,6 +53,10 @@ public interface JsonDeserializer<T> {
     }
 
     default Calendar deserializeDateTime(String dateTime) {
+        if(dateTime == null) {
+            return null;
+        }
+
         try {
             return DatatypeFactory.newInstance()
                     .newXMLGregorianCalendar(dateTime)
@@ -59,5 +64,13 @@ public interface JsonDeserializer<T> {
         } catch (DatatypeConfigurationException e) {
             throw new JSONException(e.getMessage());
         }
+    }
+
+    default <T> T deserializeNullableValue(JSONObject jsonObject, Function<String, T> deserializer, String key) {
+        return jsonObject.has(key) && !jsonObject.isNull(key) ? deserializer.apply(key) : null;
+    }
+
+    default String deserializeNullableString(JSONObject jsonObject, String key) {
+        return deserializeNullableValue(jsonObject, jsonObject::getString, key);
     }
 }
