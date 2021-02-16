@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.6.5] - 2021-02-16
+
+### Added
+- Add `isPublic` attribute on LiveStreams
+
 ## [0.6.4] - 2021-01-29
 
 ### Fixed

@@ -27,10 +27,12 @@ class LiveStreamInputSerializerTest {
         LiveStreamInput liveStream = new LiveStreamInput("test");
         liveStream.record   = true;
         liveStream.playerId = "xxx";
+        liveStream.isPublic = true;
 
         JSONObject serialized = serializer.serialize(liveStream);
 
         assertEquals(liveStream.record, serialized.getBoolean("record"));
         assertEquals(liveStream.playerId, serialized.getString("playerId"));
+        assertEquals(liveStream.isPublic, serialized.getBoolean("public"));
     }
 }

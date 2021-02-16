@@ -18,6 +18,7 @@ class LiveStreamDeserializerTest {
 
         assertEquals(json.getString("liveStreamId"), liveStream.liveStreamId);
         assertEquals(json.getString("name"), liveStream.name);
+        assertEquals(json.getBoolean("public"), liveStream.isPublic);
         assertEquals(json.getString("streamKey"), liveStream.streamKey);
     }
 
@@ -25,6 +26,7 @@ class LiveStreamDeserializerTest {
         return new JSONObject()
                 .put("liveStreamId", "liSuccess")
                 .put("name", "test")
+                .put("public", true)
                 .put("streamKey", "xxx")
                 .put("broadcasting", true);
     }
