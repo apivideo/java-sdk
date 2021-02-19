@@ -19,6 +19,10 @@ public class LiveStreamDeserializer implements JsonDeserializer<LiveStream> {
             liveStream.record = data.getBoolean("record");
         }
 
+        if (data.has("public")) {
+            liveStream.isPublic = data.getBoolean("public");
+        }
+
         if (data.has("assets")) {
             liveStream.assets.putAll(convertJsonMapToStringMap(data.getJSONObject("assets")));
         }
