@@ -1,4 +1,9 @@
 ![](https://github.com/apivideo/API_OAS_file/blob/master/apivideo_banner.png)
+
+
+## DEPRECATION WARNING: this SDK will soon be **deprecated** and will no longer be maintained. It has been replaced by the **[Java API client](https://github.com/apivideo/java-api-client)**. Please use it instead.
+
+
 # API.video java-sdk
 
 This SDK provides a Java client for [api.video](https://api.video/) service.
